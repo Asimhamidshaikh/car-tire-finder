@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TireMatch - Ultimate Car Tire Finder</title>
+  <title>TireMatch Pro - Ultimate Car Tire Finder</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -185,7 +185,6 @@
     <div class="form-group">
       <label for="carSelect">Vehicle Model (20 Options)</label>
       <select id="carSelect">
-        <!-- 20 Vehicles -->
         <option value="rav4">Toyota RAV4</option>
         <option value="camry">Toyota Camry</option>
         <option value="corolla">Toyota Corolla</option>
@@ -248,7 +247,6 @@
   </div>
 
   <script>
-    // Expanded Database with Hankook, Dunlop, Sailun, Kumho, Michelin, Goodyear, Pirelli
     const carsData = {
       rav4: {
         name: "Toyota RAV4",
@@ -527,11 +525,90 @@
           }
         ]
       },
-      santafe: { name: "Hyundai Santa Fe", trims: { "SE / SEL": "235/65R17" }, tires: [{ brand: "Hankook", category: "Affordability & Value", name: "Hankook Dynapro HP2", badgeClass: "badge-budget", desc: "Solid CUV control.", rating: "4.5 ★", prices: { saudi: "470 SAR", pakistan: "38,000 PKR", us: "$130 USD" } }] },
-      sportage: { name: "Kia Sportage", trims: { "LX / EX": "225/60R17" }, tires: [{ brand: "Dunlop Tires", category: "Comfort & Quiet", name: "Dunlop Grandtrek PT3", badgeClass: "badge-comfort", desc: "Quiet city crossover performance.", rating: "4.4 ★", prices: { saudi: "410 SAR", pakistan: "34,000 PKR", us: "$118 USD" } }] },
-      cerato: { name: "Kia Cerato / Forte", trims: { "Standard": "205/55R16" }, tires: [{ brand: "Hankook", category: "Affordability & Value", name: "Hankook Kinergy ST", badgeClass: "badge-budget", desc: "Economy sedan favorite.", rating: "4.4 ★", prices: { saudi: "270 SAR", pakistan: "22,000 PKR", us: "$78 USD" } }] },
-      mustang: { name: "Ford Mustang", trims: { "GT (19-inch)": "255/40R19" }, tires: [{ brand: "Hankook", category: "Affordability & Value", name: "Hankook Ventus V12 evo2", badgeClass: "badge-wet", desc: "Ultra-high performance sports tire.", rating: "4.6 ★", prices: { saudi: "620 SAR", pakistan: "51,000 PKR", us: "$175 USD" } }] },
-      f150: { name: "Ford F-150", trims: { "XLT / Lariat": "275/65R18" }, tires: [{ brand: "Goodyear", category: "All-Terrain / Offroad", name: "Goodyear Wrangler UltraTerrain AT", badgeClass: "", desc: "Heavy towing capacity.", rating: "4.8 ★", prices: { saudi: "790 SAR", pakistan: "65,000 PKR", us: "$220 USD" } }] },
-      bmw3: { name: "BMW 3 Series", trims: { "330i (18-inch)": "225/45R18" }, tires: [{ brand: "Pirelli", category: "Comfort & Quiet", name: "Pirelli Cinturato P7 All Season", badgeClass: "badge-comfort", desc: "Run-flat sport performance.", rating: "4.6 ★", prices: { saudi: "710 SAR", pakistan: "58,000 PKR", us: "$195 USD" } }] },
-      model3: { name: "Tesla Model 3", trims: { "Long Range (18/19-inch)": "235/45R18" }, tires: [{ brand: "Hankook", category: "Comfort & Quiet", name: "Hankook iON evo AS", badgeClass: "badge-comfort", desc: "Specifically engineered for electric vehicles to absorb road drone and maximize battery range.", rating: "4.8 ★", prices: { saudi: "740 SAR", pakistan: "60,000 PKR", us: "$205 USD" } }] },
-      eclass: { name: "Mercedes E-Class", trims: { "E300 (18-inch)": "245/45R18" }, tires: [{ brand: "Continental", category: "Comfort & Quiet", name: "Continental ProContact GX", badgeClass: "badge-comfort", desc: "Executive luxury sedan smoothness.", rating: "4.7 ★", prices: { saudi: "790 SAR", pa
+      santafe: {
+        name: "Hyundai Santa Fe",
+        trims: { "SE / SEL (17-inch)": "235/65R17" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Dynapro HP2",
+            badgeClass: "badge-budget",
+            desc: "Solid CUV control.",
+            rating: "4.5 ★",
+            prices: { saudi: "470 SAR", pakistan: "38,000 PKR", us: "$130 USD" }
+          }
+        ]
+      },
+      sportage: {
+        name: "Kia Sportage",
+        trims: { "LX / EX (17-inch)": "225/60R17" },
+        tires: [
+          {
+            brand: "Dunlop Tires",
+            category: "Comfort & Quiet",
+            name: "Dunlop Grandtrek PT3",
+            badgeClass: "badge-comfort",
+            desc: "Quiet city crossover performance.",
+            rating: "4.4 ★",
+            prices: { saudi: "410 SAR", pakistan: "34,000 PKR", us: "$118 USD" }
+          }
+        ]
+      },
+      cerato: {
+        name: "Kia Cerato / Forte",
+        trims: { "Standard (16-inch)": "205/55R16" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Kinergy ST",
+            badgeClass: "badge-budget",
+            desc: "Economy sedan favorite.",
+            rating: "4.4 ★",
+            prices: { saudi: "270 SAR", pakistan: "22,000 PKR", us: "$78 USD" }
+          }
+        ]
+      },
+      mustang: {
+        name: "Ford Mustang",
+        trims: { "GT (19-inch)": "255/40R19" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Ventus V12 evo2",
+            badgeClass: "badge-wet",
+            desc: "Ultra-high performance sports tire.",
+            rating: "4.6 ★",
+            prices: { saudi: "620 SAR", pakistan: "51,000 PKR", us: "$175 USD" }
+          }
+        ]
+      },
+      f150: {
+        name: "Ford F-150",
+        trims: { "XLT / Lariat (18-inch)": "275/65R18" },
+        tires: [
+          {
+            brand: "Goodyear",
+            category: "All-Terrain / Offroad",
+            name: "Goodyear Wrangler UltraTerrain AT",
+            badgeClass: "",
+            desc: "Heavy towing capacity.",
+            rating: "4.8 ★",
+            prices: { saudi: "790 SAR", pakistan: "65,000 PKR", us: "$220 USD" }
+          }
+        ]
+      },
+      bmw3: {
+        name: "BMW 3 Series",
+        trims: { "330i (18-inch)": "225/45R18" },
+        tires: [
+          {
+            brand: "Pirelli",
+            category: "Comfort & Quiet",
+            name: "Pirelli Cinturato P7 All Season",
+            badgeClass: "badge-comfort",
+            desc: "Run-flat sport performance.",
+            rating: "4.6 ★",
+            prices: { s
