@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TireMatch - Best Tires for Your Car</title>
+  <title>TireMatch - Ultimate Car Tire Finder</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -25,7 +25,7 @@
       background-color: var(--bg);
       color: var(--text);
       padding: 20px;
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
@@ -35,7 +35,7 @@
     }
 
     header h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--accent);
       margin-bottom: 8px;
     }
@@ -50,9 +50,9 @@
       border-radius: 12px;
       border: 1px solid var(--border);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 15px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .form-group {
@@ -62,8 +62,8 @@
     }
 
     label {
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -87,16 +87,17 @@
       background-color: rgba(56, 189, 248, 0.1);
       border: 1px solid var(--accent);
       color: var(--accent);
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       margin-bottom: 25px;
       text-align: center;
       font-weight: 600;
+      font-size: 1.05rem;
     }
 
     .tire-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
 
@@ -128,9 +129,21 @@
       margin-bottom: 12px;
     }
 
+    .badge-budget { background-color: #16a34a; }
+    .badge-durability { background-color: #d97706; }
+    .badge-comfort { background-color: #9333ea; }
+    .badge-wet { background-color: #2563eb; }
+
     .tire-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .brand-tag {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
     }
 
     .tire-card p {
@@ -155,7 +168,7 @@
     }
 
     .price {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #10b981;
     }
@@ -164,29 +177,47 @@
 <body>
 
   <header>
-    <h1>🏎️ TireMatch</h1>
-    <p>Find the best tire recommendations tailored to your car & region</p>
+    <h1>🏎️ TireMatch Pro</h1>
+    <p>Find top-rated tires by brand, budget, and category for 20+ vehicle models</p>
   </header>
 
   <div class="controls-card">
     <div class="form-group">
-      <label for="carSelect">Car Model</label>
+      <label for="carSelect">Vehicle Model (20 Options)</label>
       <select id="carSelect">
+        <!-- 20 Vehicles -->
         <option value="rav4">Toyota RAV4</option>
         <option value="camry">Toyota Camry</option>
+        <option value="corolla">Toyota Corolla</option>
+        <option value="hilux">Toyota Hilux / Prado</option>
         <option value="civic">Honda Civic</option>
+        <option value="accord">Honda Accord</option>
+        <option value="crv">Honda CR-V</option>
+        <option value="altima">Nissan Altima</option>
+        <option value="sunny">Nissan Sunny / Sentra</option>
+        <option value="patrol">Nissan Patrol / Armada</option>
+        <option value="elantra">Hyundai Elantra</option>
+        <option value="tucson">Hyundai Tucson</option>
+        <option value="santafe">Hyundai Santa Fe</option>
+        <option value="sportage">Kia Sportage</option>
+        <option value="cerato">Kia Cerato / Forte</option>
+        <option value="mustang">Ford Mustang</option>
+        <option value="f150">Ford F-150</option>
+        <option value="bmw3">BMW 3 Series</option>
+        <option value="model3">Tesla Model 3</option>
+        <option value="eclass">Mercedes E-Class</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="trimSelect">Year / Trim</label>
+      <label for="trimSelect">Year / Trim Level</label>
       <select id="trimSelect">
-        <!-- Dynamically populated -->
+        <!-- Populated via JS -->
       </select>
     </div>
 
     <div class="form-group">
-      <label for="countrySelect">Country / Region</label>
+      <label for="countrySelect">Region / Currency</label>
       <select id="countrySelect">
         <option value="saudi">Saudi Arabia (SAR)</option>
         <option value="pakistan">Pakistan (PKR)</option>
@@ -195,79 +226,91 @@
     </div>
 
     <div class="form-group">
-      <label for="categoryFilter">Category</label>
+      <label for="categoryFilter">Tire Category</label>
       <select id="categoryFilter">
         <option value="all">All Categories</option>
-        <option value="Affordability">Affordability</option>
-        <option value="Durability">Durability & Mileage</option>
-        <option value="Comfort & Quiet">Comfort & Quiet</option>
-        <option value="All-Terrain / Offroad">All-Terrain / Offroad</option>
+        <option value="Ultra-Budget">💰 Ultra-Budget (Lowest Price)</option>
+        <option value="Affordability & Value">🏷️ Affordability & Value</option>
+        <option value="Durability & Mileage">🛡️ Durability & Mileage</option>
+        <option value="Comfort & Quiet">🤫 Comfort & Low Noise</option>
+        <option value="Wet Grip & Safety">🌧️ Wet Grip & Safety</option>
+        <option value="All-Terrain / Offroad">⛰️ All-Terrain / Offroad</option>
       </select>
     </div>
   </div>
 
   <div class="size-info" id="sizeInfo">
-    Stock Tire Size: --
+    Loading tire specification...
   </div>
 
   <div class="tire-grid" id="tireGrid">
-    <!-- Tire cards render here dynamically -->
+    <!-- Tire cards render here -->
   </div>
 
   <script>
-    // Car Database
+    // Expanded Database with Hankook, Dunlop, Sailun, Kumho, Michelin, Goodyear, Pirelli
     const carsData = {
       rav4: {
         name: "Toyota RAV4",
         trims: {
           "2019-2026 LE / XLE (17-inch)": "225/65R17",
           "2019-2026 XLE Premium (18-inch)": "225/60R18",
-          "2019-2026 Limited / Adventure (19-inch)": "235/55R19"
+          "2019-2026 Limited / Adventure / TRD (19-inch)": "235/55R19"
         },
         tires: [
           {
-            category: "Affordability",
-            name: "Kumho Crugen HP71",
-            desc: "Excellent value for money. Smooth ride, solid all-season grip, and budget-friendly.",
-            rating: "4.3 ★ (65k mi warranty)",
-            prices: {
-              saudi: "480 SAR",
-              pakistan: "38,000 PKR",
-              us: "$135 USD"
-            }
+            brand: "Sailun Tires",
+            category: "Ultra-Budget",
+            name: "Sailun Terramax CVR",
+            badgeClass: "badge-budget",
+            desc: "Maximum wallet savings. Reliable entry-level crossover tire with decent dry traction and quiet ride.",
+            rating: "4.1 ★ (45k mi warranty)",
+            prices: { saudi: "290 SAR", pakistan: "24,000 PKR", us: "$85 USD" }
           },
           {
-            category: "Durability",
-            name: "Michelin Defender 2",
-            desc: "Industry leader in longevity. Designed for max tread life, puncture protection, and durability.",
-            rating: "4.9 ★ (80k mi warranty)",
-            prices: {
-              saudi: "780 SAR",
-              pakistan: "62,000 PKR",
-              us: "$210 USD"
-            }
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Dynapro HP2 (RA33)",
+            badgeClass: "badge-budget",
+            desc: "High-performance value SUV tire. Great wet braking, low rolling resistance, and long-lasting tread.",
+            rating: "4.5 ★ (65k mi warranty)",
+            prices: { saudi: "440 SAR", pakistan: "36,000 PKR", us: "$128 USD" }
           },
           {
+            brand: "Dunlop Tires",
             category: "Comfort & Quiet",
-            name: "Pirelli Scorpion AS Plus 3",
-            desc: "Ultra-quiet cabin ride with dampening tech to absorb highway bumps effortlessly.",
-            rating: "4.7 ★ (70k mi warranty)",
-            prices: {
-              saudi: "710 SAR",
-              pakistan: "56,000 PKR",
-              us: "$188 USD"
-            }
+            name: "Dunlop Grandtrek PT3",
+            badgeClass: "badge-comfort",
+            desc: "Designed specifically for modern crossovers. Excellent high-speed stability and reduced cabin noise.",
+            rating: "4.4 ★ (55k mi warranty)",
+            prices: { saudi: "490 SAR", pakistan: "41,000 PKR", us: "$142 USD" }
           },
           {
+            brand: "Michelin",
+            category: "Durability & Mileage",
+            name: "Michelin Defender 2",
+            badgeClass: "badge-durability",
+            desc: "Top durability tier. Engineered to last up to 25,000 miles longer than leading competitors.",
+            rating: "4.9 ★ (80k mi warranty)",
+            prices: { saudi: "780 SAR", pakistan: "62,000 PKR", us: "$210 USD" }
+          },
+          {
+            brand: "Continental",
+            category: "Wet Grip & Safety",
+            name: "Continental CrossContact LX25",
+            badgeClass: "badge-wet",
+            desc: "Best-in-class wet braking distance and hydroplaning resistance for SUV families.",
+            rating: "4.7 ★ (70k mi warranty)",
+            prices: { saudi: "690 SAR", pakistan: "55,000 PKR", us: "$185 USD" }
+          },
+          {
+            brand: "Falken",
             category: "All-Terrain / Offroad",
             name: "Falken Wildpeak A/T Trail",
-            desc: "Rugged design engineered specifically for crossover SUVs like RAV4 TRD/Adventure.",
+            badgeClass: "",
+            desc: "Rugged design engineered specifically for RAV4 Adventure/TRD off-roading.",
             rating: "4.8 ★ (65k mi warranty)",
-            prices: {
-              saudi: "690 SAR",
-              pakistan: "54,000 PKR",
-              us: "$182 USD"
-            }
+            prices: { saudi: "670 SAR", pakistan: "53,000 PKR", us: "$178 USD" }
           }
         ]
       },
@@ -279,101 +322,216 @@
         },
         tires: [
           {
-            category: "Affordability",
-            name: "Hankook Kinergy PT",
-            desc: "Great budget option for sedans with reliable dry/wet braking performance.",
-            rating: "4.4 ★",
-            prices: { saudi: "410 SAR", pakistan: "32,000 PKR", us: "$115 USD" }
+            brand: "Sailun",
+            category: "Ultra-Budget",
+            name: "Sailun Atrezzo SH406",
+            badgeClass: "badge-budget",
+            desc: "Ultra-low price point with basic all-season daily commuting stability.",
+            rating: "4.0 ★",
+            prices: { saudi: "230 SAR", pakistan: "19,000 PKR", us: "$68 USD" }
           },
           {
-            category: "Durability",
-            name: "Michelin Defender T+H",
-            desc: "Built to last with extreme treadwear durability and high fuel efficiency.",
-            rating: "4.8 ★",
-            prices: { saudi: "650 SAR", pakistan: "52,000 PKR", us: "$175 USD" }
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Kinergy PT (H737)",
+            badgeClass: "badge-budget",
+            desc: "Superb value for midsize sedans. Exceptional treadwear index rating of 860.",
+            rating: "4.6 ★ (90k mi warranty)",
+            prices: { saudi: "380 SAR", pakistan: "31,000 PKR", us: "$108 USD" }
+          },
+          {
+            brand: "Dunlop Tires",
+            category: "Comfort & Quiet",
+            name: "Dunlop Veuro VE303",
+            badgeClass: "badge-comfort",
+            desc: "Premium silent luxury touring tire designed to block road vibrations.",
+            rating: "4.5 ★",
+            prices: { saudi: "520 SAR", pakistan: "43,000 PKR", us: "$145 USD" }
           }
         ]
-      }
-    };
-
-    // DOM Elements
-    const carSelect = document.getElementById("carSelect");
-    const trimSelect = document.getElementById("trimSelect");
-    const countrySelect = document.getElementById("countrySelect");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const sizeInfo = document.getElementById("sizeInfo");
-    const tireGrid = document.getElementById("tireGrid");
-
-    // Populate Trims dropdown based on selected car
-    function updateTrims() {
-      const selectedCarKey = carSelect.value;
-      const car = carsData[selectedCarKey];
-      trimSelect.innerHTML = "";
-
-      for (let trim in car.trims) {
-        const option = document.createElement("option");
-        option.value = trim;
-        option.textContent = trim;
-        trimSelect.appendChild(option);
-      }
-      render();
-    }
-
-    // Render tires and size info
-    function render() {
-      const selectedCarKey = carSelect.value;
-      const selectedTrim = trimSelect.value;
-      const selectedCountry = countrySelect.value;
-      const selectedCategory = categoryFilter.value;
-
-      const car = carsData[selectedCarKey];
-      if (!car) return;
-
-      // Update Size banner
-      const tireSize = car.trims[selectedTrim] || "Standard Size";
-      sizeInfo.textContent = `Recommended Tire Size for selected trim: ${tireSize}`;
-
-      // Filter tires
-      let filteredTires = car.tires;
-      if (selectedCategory !== "all") {
-        filteredTires = filteredTires.filter(t => t.category === selectedCategory);
-      }
-
-      // Render cards
-      tireGrid.innerHTML = "";
-      if (filteredTires.length === 0) {
-        tireGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: var(--text-muted);">No tires found for this filter.</p>`;
-        return;
-      }
-
-      filteredTires.forEach(tire => {
-        const price = tire.prices[selectedCountry] || "N/A";
-        const card = document.createElement("div");
-        card.className = "tire-card";
-        card.innerHTML = `
-          <div>
-            <span class="badge">${tire.category}</span>
-            <h3>${tire.name}</h3>
-            <p>${tire.desc}</p>
-          </div>
-          <div class="tire-meta">
-            <span class="rating">${tire.rating}</span>
-            <span class="price">${price}</span>
-          </div>
-        `;
-        tireGrid.appendChild(card);
-      });
-    }
-
-    // Event Listeners
-    carSelect.addEventListener("change", updateTrims);
-    trimSelect.addEventListener("change", render);
-    countrySelect.addEventListener("change", render);
-    categoryFilter.addEventListener("change", render);
-
-    // Initial load
-    updateTrims();
-  </script>
-</body>
-</html>
-
+      },
+      corolla: {
+        name: "Toyota Corolla",
+        trims: { "Standard (15/16-inch)": "205/55R16" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Kinergy ST",
+            badgeClass: "badge-budget",
+            desc: "Smooth daily commuter tire with reinforced dual-filler tread compound.",
+            rating: "4.5 ★",
+            prices: { saudi: "290 SAR", pakistan: "23,000 PKR", us: "$82 USD" }
+          },
+          {
+            brand: "Dunlop Tires",
+            category: "Durability & Mileage",
+            name: "Dunlop SP Sport LM705",
+            badgeClass: "badge-durability",
+            desc: "Uses Shinobi Technology to cushion impacts and reduce tread wear over time.",
+            rating: "4.4 ★",
+            prices: { saudi: "340 SAR", pakistan: "27,000 PKR", us: "$95 USD" }
+          }
+        ]
+      },
+      hilux: {
+        name: "Toyota Hilux / Prado",
+        trims: { "All-Terrain (17/18-inch)": "265/65R17" },
+        tires: [
+          {
+            brand: "Dunlop Tires",
+            category: "Affordability & Value",
+            name: "Dunlop Grandtrek AT20 / AT25",
+            badgeClass: "badge-budget",
+            desc: "Factory standard heavy-duty option for extreme heat and desert sand terrain.",
+            rating: "4.5 ★",
+            prices: { saudi: "560 SAR", pakistan: "46,000 PKR", us: "$155 USD" }
+          },
+          {
+            brand: "Hankook",
+            category: "All-Terrain / Offroad",
+            name: "Hankook Dynapro AT2 (RF11)",
+            badgeClass: "",
+            desc: "Multi-directional grooves prevent sharp rock punctures and improve sand traction.",
+            rating: "4.7 ★",
+            prices: { saudi: "610 SAR", pakistan: "50,000 PKR", us: "$168 USD" }
+          }
+        ]
+      },
+      civic: {
+        name: "Honda Civic",
+        trims: { "2016-2026 Sport/EX (17/18-inch)": "215/50R17" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Ventus V2 Concept 2",
+            badgeClass: "badge-budget",
+            desc: "Sporty styling and sharp steering response at an affordable price point.",
+            rating: "4.3 ★",
+            prices: { saudi: "320 SAR", pakistan: "26,000 PKR", us: "$92 USD" }
+          },
+          {
+            brand: "Goodyear",
+            category: "Wet Grip & Safety",
+            name: "Goodyear Eagle Exhilarate",
+            badgeClass: "badge-wet",
+            desc: "ActiveGrip technology provides short stopping distances in heavy rainfall.",
+            rating: "4.7 ★",
+            prices: { saudi: "580 SAR", pakistan: "48,000 PKR", us: "$162 USD" }
+          }
+        ]
+      },
+      accord: {
+        name: "Honda Accord",
+        trims: { "2018-2026 EX / Touring (17/19-inch)": "225/50R17" },
+        tires: [
+          {
+            brand: "Dunlop Tires",
+            category: "Comfort & Quiet",
+            name: "Dunlop Enasave EC300+",
+            badgeClass: "badge-comfort",
+            desc: "Eco-friendly low noise tire optimized for sedan fuel economy.",
+            rating: "4.3 ★",
+            prices: { saudi: "420 SAR", pakistan: "34,000 PKR", us: "$118 USD" }
+          }
+        ]
+      },
+      crv: {
+        name: "Honda CR-V",
+        trims: { "2017-2026 EX / EX-L (18-inch)": "235/60R18" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Kinergy GT (H436)",
+            badgeClass: "badge-budget",
+            desc: "Standard OE replacement choice with smooth highway stability.",
+            rating: "4.4 ★",
+            prices: { saudi: "460 SAR", pakistan: "38,000 PKR", us: "$132 USD" }
+          }
+        ]
+      },
+      altima: {
+        name: "Nissan Altima",
+        trims: { "2019-2026 SV / SL (17-inch)": "215/55R17" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Optimo H426",
+            badgeClass: "badge-budget",
+            desc: "Reliable, low-vibration daily driving setup.",
+            rating: "4.2 ★",
+            prices: { saudi: "330 SAR", pakistan: "27,000 PKR", us: "$94 USD" }
+          }
+        ]
+      },
+      sunny: {
+        name: "Nissan Sunny / Sentra",
+        trims: { "Standard (15/16-inch)": "195/65R15" },
+        tires: [
+          {
+            brand: "Sailun",
+            category: "Ultra-Budget",
+            name: "Sailun Atrezzo Eco",
+            badgeClass: "badge-budget",
+            desc: "Cheapest options for city commuting and taxi usage.",
+            rating: "4.0 ★",
+            prices: { saudi: "190 SAR", pakistan: "15,000 PKR", us: "$55 USD" }
+          }
+        ]
+      },
+      patrol: {
+        name: "Nissan Patrol / Armada",
+        trims: { "SE / LE (18/20-inch)": "275/60R20" },
+        tires: [
+          {
+            brand: "Dunlop Tires",
+            category: "Durability & Mileage",
+            name: "Dunlop Grandtrek PT2A",
+            badgeClass: "badge-durability",
+            desc: "Heavy-duty full-size SUV tire designed for heavy loads and hot asphalt.",
+            rating: "4.6 ★",
+            prices: { saudi: "750 SAR", pakistan: "60,000 PKR", us: "$210 USD" }
+          }
+        ]
+      },
+      elantra: {
+        name: "Hyundai Elantra",
+        trims: { "2017-2026 SEL / Limited (16/17-inch)": "205/55R16" },
+        tires: [
+          {
+            brand: "Hankook",
+            category: "Affordability & Value",
+            name: "Hankook Kinergy EX",
+            badgeClass: "badge-budget",
+            desc: "High fuel efficiency casing with optimized rubber compound.",
+            rating: "4.4 ★",
+            prices: { saudi: "280 SAR", pakistan: "23,000 PKR", us: "$80 USD" }
+          }
+        ]
+      },
+      tucson: {
+        name: "Hyundai Tucson",
+        trims: { "2018-2026 SEL (17/18-inch)": "225/60R17" },
+        tires: [
+          {
+            brand: "Kumho",
+            category: "Affordability & Value",
+            name: "Kumho Crugen Premium KL33",
+            badgeClass: "badge-budget",
+            desc: "Smooth luxury feel without the high price tag.",
+            rating: "4.3 ★",
+            prices: { saudi: "390 SAR", pakistan: "32,000 PKR", us: "$112 USD" }
+          }
+        ]
+      },
+      santafe: { name: "Hyundai Santa Fe", trims: { "SE / SEL": "235/65R17" }, tires: [{ brand: "Hankook", category: "Affordability & Value", name: "Hankook Dynapro HP2", badgeClass: "badge-budget", desc: "Solid CUV control.", rating: "4.5 ★", prices: { saudi: "470 SAR", pakistan: "38,000 PKR", us: "$130 USD" } }] },
+      sportage: { name: "Kia Sportage", trims: { "LX / EX": "225/60R17" }, tires: [{ brand: "Dunlop Tires", category: "Comfort & Quiet", name: "Dunlop Grandtrek PT3", badgeClass: "badge-comfort", desc: "Quiet city crossover performance.", rating: "4.4 ★", prices: { saudi: "410 SAR", pakistan: "34,000 PKR", us: "$118 USD" } }] },
+      cerato: { name: "Kia Cerato / Forte", trims: { "Standard": "205/55R16" }, tires: [{ brand: "Hankook", category: "Affordability & Value", name: "Hankook Kinergy ST", badgeClass: "badge-budget", desc: "Economy sedan favorite.", rating: "4.4 ★", prices: { saudi: "270 SAR", pakistan: "22,000 PKR", us: "$78 USD" } }] },
+      mustang: { name: "Ford Mustang", trims: { "GT (19-inch)": "255/40R19" }, tires: [{ brand: "Hankook", category: "Affordability & Value", name: "Hankook Ventus V12 evo2", badgeClass: "badge-wet", desc: "Ultra-high performance sports tire.", rating: "4.6 ★", prices: { saudi: "620 SAR", pakistan: "51,000 PKR", us: "$175 USD" } }] },
+      f150: { name: "Ford F-150", trims: { "XLT / Lariat": "275/65R18" }, tires: [{ brand: "Goodyear", category: "All-Terrain / Offroad", name: "Goodyear Wrangler UltraTerrain AT", badgeClass: "", desc: "Heavy towing capacity.", rating: "4.8 ★", prices: { saudi: "790 SAR", pakistan: "65,000 PKR", us: "$220 USD" } }] },
+      bmw3: { name: "BMW 3 Series", trims: { "330i (18-inch)": "225/45R18" }, tires: [{ brand: "Pirelli", category: "Comfort & Quiet", name: "Pirelli Cinturato P7 All Season", badgeClass: "badge-comfort", desc: "Run-flat sport performance.", rating: "4.6 ★", prices: { saudi: "710 SAR", pakistan: "58,000 PKR", us: "$195 USD" } }] },
+      model3: { name: "Tesla Model 3", trims: { "Long Range (18/19-inch)": "235/45R18" }, tires: [{ brand: "Hankook", category: "Comfort & Quiet", name: "Hankook iON evo AS", badgeClass: "badge-comfort", desc: "Specifically engineered for electric vehicles to absorb road drone and maximize battery range.", rating: "4.8 ★", prices: { saudi: "740 SAR", pakistan: "60,000 PKR", us: "$205 USD" } }] },
+      eclass: { name: "Mercedes E-Class", trims: { "E300 (18-inch)": "245/45R18" }, tires: [{ brand: "Continental", category: "Comfort & Quiet", name: "Continental ProContact GX", badgeClass: "badge-comfort", desc: "Executive luxury sedan smoothness.", rating: "4.7 ★", prices: { saudi: "790 SAR", pa
