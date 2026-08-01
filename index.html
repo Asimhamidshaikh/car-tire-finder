@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TireMatch - Best Tires for Your Car</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+    }
+
+    .controls-card {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select {
+      background-color: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .size-info {
+      background-color: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .tire-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .tire-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tire-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .badge {
+      align-self: flex-start;
+      background-color: #0284c7;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .tire-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .tire-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .tire-meta {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rating {
+      font-size: 0.85rem;
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #10b981;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🏎️ TireMatch</h1>
+    <p>Find the best tire recommendations tailored to your car & region</p>
+  </header>
+
+  <div class="controls-card">
+    <div class="form-group">
+      <label for="carSelect">Car Model</label>
+      <select id="carSelect">
+        <option value="rav4">Toyota RAV4</option>
+        <option value="camry">Toyota Camry</option>
+        <option value="civic">Honda Civic</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="trimSelect">Year / Trim</label>
+      <select id="trimSelect">
+        <!-- Dynamically populated -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="countrySelect">Country / Region</label>
+      <select id="countrySelect">
+        <option value="saudi">Saudi Arabia (SAR)</option>
+        <option value="pakistan">Pakistan (PKR)</option>
+        <option value="us">United States (USD)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="categoryFilter">Category</label>
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Affordability">Affordability</option>
+        <option value="Durability">Durability & Mileage</option>
+        <option value="Comfort & Quiet">Comfort & Quiet</option>
+        <option value="All-Terrain / Offroad">All-Terrain / Offroad</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="size-info" id="sizeInfo">
+    Stock Tire Size: --
+  </div>
+
+  <div class="tire-grid" id="tireGrid">
+    <!-- Tire cards render here dynamically -->
+  </div>
+
+  <script>
+    // Car Database
+    const carsData = {
+      rav4: {
+        name: "Toyota RAV4",
+        trims: {
+          "2019-2026 LE / XLE (17-inch)": "225/65R17",
+          "2019-2026 XLE Premium (18-inch)": "225/60R18",
+          "2019-2026 Limited / Adventure (19-inch)": "235/55R19"
+        },
+        tires: [
+          {
+            category: "Affordability",
+            name: "Kumho Crugen HP71",
+            desc: "Excellent value for money. Smooth ride, solid all-season grip, and budget-friendly.",
+            rating: "4.3 ★ (65k mi warranty)",
+            prices: {
+              saudi: "480 SAR",
+              pakistan: "38,000 PKR",
+              us: "$135 USD"
+            }
+          },
+          {
+            category: "Durability",
+            name: "Michelin Defender 2",
+            desc: "Industry leader in longevity. Designed for max tread life, puncture protection, and durability.",
+            rating: "4.9 ★ (80k mi warranty)",
+            prices: {
+              saudi: "780 SAR",
+              pakistan: "62,000 PKR",
+              us: "$210 USD"
+            }
+          },
+          {
+            category: "Comfort & Quiet",
+            name: "Pirelli Scorpion AS Plus 3",
+            desc: "Ultra-quiet cabin ride with dampening tech to absorb highway bumps effortlessly.",
+            rating: "4.7 ★ (70k mi warranty)",
+            prices: {
+              saudi: "710 SAR",
+              pakistan: "56,000 PKR",
+              us: "$188 USD"
+            }
+          },
+          {
+            category: "All-Terrain / Offroad",
+            name: "Falken Wildpeak A/T Trail",
+            desc: "Rugged design engineered specifically for crossover SUVs like RAV4 TRD/Adventure.",
+            rating: "4.8 ★ (65k mi warranty)",
+            prices: {
+              saudi: "690 SAR",
+              pakistan: "54,000 PKR",
+              us: "$182 USD"
+            }
+          }
+        ]
+      },
+      camry: {
+        name: "Toyota Camry",
+        trims: {
+          "2018-2026 LE (16-inch)": "205/65R16",
+          "2018-2026 SE / XLE (17/18-inch)": "235/45R18"
+        },
+        tires: [
+          {
+            category: "Affordability",
+            name: "Hankook Kinergy PT",
+            desc: "Great budget option for sedans with reliable dry/wet braking performance.",
+            rating: "4.4 ★",
+            prices: { saudi: "410 SAR", pakistan: "32,000 PKR", us: "$115 USD" }
+          },
+          {
+            category: "Durability",
+            name: "Michelin Defender T+H",
+            desc: "Built to last with extreme treadwear durability and high fuel efficiency.",
+            rating: "4.8 ★",
+            prices: { saudi: "650 SAR", pakistan: "52,000 PKR", us: "$175 USD" }
+          }
+        ]
+      }
+    };
+
+    // DOM Elements
+    const carSelect = document.getElementById("carSelect");
+    const trimSelect = document.getElementById("trimSelect");
+    const countrySelect = document.getElementById("countrySelect");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const sizeInfo = document.getElementById("sizeInfo");
+    const tireGrid = document.getElementById("tireGrid");
+
+    // Populate Trims dropdown based on selected car
+    function updateTrims() {
+      const selectedCarKey = carSelect.value;
+      const car = carsData[selectedCarKey];
+      trimSelect.innerHTML = "";
+
+      for (let trim in car.trims) {
+        const option = document.createElement("option");
+        option.value = trim;
+        option.textContent = trim;
+        trimSelect.appendChild(option);
+      }
+      render();
+    }
+
+    // Render tires and size info
+    function render() {
+      const selectedCarKey = carSelect.value;
+      const selectedTrim = trimSelect.value;
+      const selectedCountry = countrySelect.value;
+      const selectedCategory = categoryFilter.value;
+
+      const car = carsData[selectedCarKey];
+      if (!car) return;
+
+      // Update Size banner
+      const tireSize = car.trims[selectedTrim] || "Standard Size";
+      sizeInfo.textContent = `Recommended Tire Size for selected trim: ${tireSize}`;
+
+      // Filter tires
+      let filteredTires = car.tires;
+      if (selectedCategory !== "all") {
+        filteredTires = filteredTires.filter(t => t.category === selectedCategory);
+      }
+
+      // Render cards
+      tireGrid.innerHTML = "";
+      if (filteredTires.length === 0) {
+        tireGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: var(--text-muted);">No tires found for this filter.</p>`;
+        return;
+      }
+
+      filteredTires.forEach(tire => {
+        const price = tire.prices[selectedCountry] || "N/A";
+        const card = document.createElement("div");
+        card.className = "tire-card";
+        card.innerHTML = `
+          <div>
+            <span class="badge">${tire.category}</span>
+            <h3>${tire.name}</h3>
+            <p>${tire.desc}</p>
+          </div>
+          <div class="tire-meta">
+            <span class="rating">${tire.rating}</span>
+            <span class="price">${price}</span>
+          </div>
+        `;
+        tireGrid.appendChild(card);
+      });
+    }
+
+    // Event Listeners
+    carSelect.addEventListener("change", updateTrims);
+    trimSelect.addEventListener("change", render);
+    countrySelect.addEventListener("change", render);
+    categoryFilter.addEventListener("change", render);
+
+    // Initial load
+    updateTrims();
+  </script>
+</body>
+</html>
+
